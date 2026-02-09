@@ -7,6 +7,7 @@
 
 #include "IComponent.hpp"
 #include "AComponent.hpp"
+#include "AndComponent.hpp"
 #include <memory>
 
 #include <ostream>
