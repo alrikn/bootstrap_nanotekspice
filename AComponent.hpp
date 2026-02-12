@@ -8,6 +8,7 @@
 #ifndef INCLUDED_ACOMPONENT_HPP
     #define INCLUDED_ACOMPONENT_HPP
 
+#include "HashMapCache.hpp"
 #include "IComponent.hpp"
 #include <cstdint>
 #include <iostream>
@@ -47,7 +48,8 @@ class AComponent : public virtual IComponent
         {
             if (_links.count(pin) == 0)
                 return Undefined;
-            return _links[pin].component->compute(_links[pin].pin); //compute takes as an input the supposed return pin
+            auto &da_link = _links[pin];
+            return compute_hashmap(da_link.component, da_link.pin); //compute takes as an input the supposed return pin
         }
 };
 }

@@ -130,6 +130,57 @@ output(s):
 0
 ```
 
+another example with clock. (u will not notice that display takes a snapshot at the end of reading the file, and only get updated at the end of a tick)
+
+```
+~/B-OOP-400> cat -e clock.nts
+.chipsets:$
+clock   cl$
+output  out$
+.links:$
+out:1   cl:1$
+~/B-OOP-400> ./nanotekspice clock.nts
+> *display*
+tick: 0
+input(s):
+  cl: U
+output(s):
+  out: U
+> *cl=0*
+> *display*
+tick: 0
+input(s):
+  cl: U
+output(s):
+  out: U
+> *simulate*
+> *display*
+tick: 1
+input(s):
+  cl: 0
+output(s):
+  out: 0
+> *simulate*
+> *display*
+tick: 2
+input(s):
+  cl: 1
+output(s):
+  out: 1
+> *simulate*
+> *simulate*
+> *simulate*
+> *display*
+tick: 5
+input(s):
+  cl: 0
+output(s):
+  out: 0
+> *(CTRL+D)*
+~/B-OOP-400> echo $?
+0
+```
+
 ## Different types of components:
 
 - special components: (these are the default, and the most used types)
@@ -158,7 +209,7 @@ What does this mean:
 
 - Every class only cares about itself, and the only thing it checks otherwise is if its connections are initialized correctly. example of andcomponent below alongside its parent class
 - special input and special outputs are separate class. the inputs are what the user sets in the cli, and the outputs are what we display to the cli.
-- inputs and outputs are truly bidirectional. meaning that in an order of execution a special input needs to be able to call  its child component, but a child component needs to be able to call a parent input (if it has 2 or more inputs for example). this simplifies the oredr of execution, because we just pick a special input at random, and we will do the rest. we do not care about infinite loops, it is the users problem to deal with. graphic explain what i mean below.
+- inputs and outputs are truly bidirectional. meaning that in an order of execution a special input needs to be able to call  its child component, but a child component needs to be able to call a parent input (if it has 2 or more inputs for example). this simplifies the oredr of execution, because we just pick a special input at random, and we will do the rest. we do not care about infinite loops, it is the users problem to deal with. graphic explain what i mean below. according to my teacher, this may be he way to go
 
 ```mermaid
 graph TD
@@ -198,72 +249,12 @@ graph TD
     - while this would remove the problem of the infinite loop,it has a problem. there are 2 different scenarios
         - It receives a reuqest = false. this means that an input is giving it a value, and it should request information to all of it inputs and post information to al of its outputs
         - It receives a request = true, it calls information from just its inputs, and only returns the output that was requesting information. Here is the problem
-    - Thie means that a parent that is called by its children may never get to call its other children if it has any, meaning that part of the code may never be executed. Now you may say that this could be fixed by making sure we call all of the special inputs, but this seems to me to be simply a cheap workaround, not a complete solution,m however i may be wrong and this may be a good solution. Also the subject specifically mentions that we should not touch the Icomponent virtual class, which defines the compute method as such: ”””Tristate compute ( std :: size_t pin ) = 0;”””. this also means that the makers of the subject found a better way
-- 
-
-### Example of a component (this was done for the bootstrap so it is still completely up to any possible changes)
-
-also currecntly the order of execution is onedirectional instead of bidirectional so that needs to change
-
-```cpp
-class AComponent : public virtual IComponent
-{
-    private:
-    protected:
-        struct Link { //were gunna make a list of which links are connected where
-            nts::IComponent *component = nullptr; //which component are we talking about
-            std::size_t pin = 0; //other pin
-        };
-
-        //index of map is gonna be our pin, and holds other pin as well as ref to other component
-        std::map<std::size_t, Link> _links; //just make a map of links
-
-    public:
-        AComponent() = default;
-        //AComponent(const AComponent& other);
-        //AComponent& operator=(const AComponent& other);
-        ~AComponent() = default;
-
-        //void display(std::ostream& os = std::cout);
-        void simulate(std::size_t tick) override
-        {
-            return;
-        }
-
-        //set da link
-        void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override
-        {
-            _links[pin] = {&other, otherPin};
-        }
-
-        nts::Tristate getLink(std::size_t pin)
-        {
-            if (_links.count(pin) == 0)
-                return Undefined;
-            return _links[pin].component->compute(_links[pin].pin); //compute takes as an input the supposed return pin
-        }
-};
-
-class AndComponent : public virtual AComponent
-{
-    private:
-    protected:
-    public:
-
-        nts :: Tristate compute ( std :: size_t pin ) override
-        {
-            if (pin != 3) //the return pin
-                return Undefined;
-            auto a = getLink(1);
-            auto b = getLink(2);
-
-            //most scuffed way of doing and statement, but can't think of anything better
-            if (a == Undefined || b == Undefined)
-                return Undefined;
-            if (a == False || b == False)
-                return False;
-            return True;
-        }
-
-};
-```
+    - Thie means that a parent that is called by its children may never get to call its other children if it has any, meaning that part of the code may never be executed. Now you may say that this could be fixed by making sure we call all of the special inputs, but this seems to me to be simply a cheap workaround, not a complete solution,m however i may be wrong and this may be a good solution. Also the subject specifically mentions that we should not touch the Icomponent virtual class, which defines the compute method as such: ”””Tristate compute ( std :: size_t pin ) = 0;”””. this also means that the makers of the subject found a better way. This also means that while there would not be any infinite loops not requested by the user, some components may be called multiple times. I do not know if this could be a big problem.
+- EUREKA!! static hashmap is the answer
+    - we have a hashmap with the hash being a mix of the current tick and the pin(the component pointer? or smth). this will store the computed value and the tick at which it was computed at, as well as current status
+    - when we call compute, we go through a Tristate compute_hashmap(Icomponent * value, siz_t pin) this func does 3 things
+        - This if there is a value prepared inside the hashmap (we0ll have a Done, InProgress, Undefeinded enum), and its at the right tick, we return the preexisting value
+        - If its InProgress entry at the hashmap, that means we are in the middle of doing this operation anyway, and we return undefined
+            - Possible problem with this, if a parent node and a chile node share multiple inputs and outputs, would this not give back false undefined? (no cus a parent calls all inputs before outputs) (only problem arrives is if the user forms a lopp but in a boolen state this is undefined behaviour)
+        - otherwise (if there s no hash entry or if its at wrong tick) we mark this as Inprogress and call compute on the parent component
+    - The getLink is what calls compute_hashmap

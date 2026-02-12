@@ -35,6 +35,7 @@ class Circuit {
         }
 
         void simulate(std::size_t tick) { // there should probably be an order of execution
+            g_current_tick = tick;
             for (auto &c : components)
                 c.second->simulate(tick);
         }
