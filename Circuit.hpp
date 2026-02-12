@@ -15,18 +15,22 @@
 #include "AComponent.hpp"
 #include "IComponent.hpp"
 
+
+namespace nts {
+
+
 class Circuit {
     private:
         std::map<std::string, std::unique_ptr<nts::IComponent>> components;
     public:
-        void addComponent(std::string name, std::unique_ptr<nts::IComponent> c)
+        void addComponent(std::string name, std::unique_ptr<IComponent> c)
         {
             components[name] = std::move(c); //uniqueptr can only be moved not copied
         }
-        std::unique_ptr<nts::IComponent> &getComponent(std::string const &name)
+        std::unique_ptr<IComponent> &getComponent(std::string const &name)
         {
             if (components.count(name) == 0)
-                raise(3);
+                raise(3); //placeholder until we find real error
             return components[name];
         }
 
@@ -38,6 +42,6 @@ class Circuit {
         //void display();
 
 };
-
+}
 
 #endif
