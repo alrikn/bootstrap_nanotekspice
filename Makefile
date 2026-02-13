@@ -12,6 +12,7 @@ SRC = main.cpp	\
 	src/circuit_handler/AComponent.cpp \
 	src/components/elementary_components/AndComponent.cpp \
 	src/components/elementary_components/NotComponent.cpp \
+	src/components/elementary_components/OrComponent.cpp \
 	src/components/input_components/FalseComponent.cpp \
 	src/components/input_components/TrueComponent.cpp \
 

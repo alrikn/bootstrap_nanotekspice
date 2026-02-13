@@ -10,17 +10,20 @@
 #include "HashMapCache.hpp"
 #include <cstddef>
 
-
+// UserOutputTypes and logOutput types will have to overwrite this func as they have their own separate logic
 void nts::AComponent::simulate(size_t tick)
 {
-    return;
+    for (std::pair<const unsigned long, nts::Class_type> link_type : component_links) {
+        if (link_type.second == InputType)
+            getLink(link_type.first);
+    }
 }
 
 //set da link
 void nts::AComponent::setLink(size_t pin, nts::IComponent &other, size_t otherPin)
 {
     //TODO: you should be able to connect may pins to a single output, but only to outputs
-    //so figure that out
+    //this means than an output may be linked to multiple inputs, but an input may only be linked to a single output.
     _links[pin] = {&other, otherPin};
 }
 
