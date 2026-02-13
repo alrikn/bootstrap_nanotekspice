@@ -1,0 +1,28 @@
+/*
+** EPITECH PROJECT, 2026
+** nanotekspice
+** File description:
+** AComponent
+*/
+
+#include "AComponent.hpp"
+
+
+void nts::AComponent::simulate(size_t tick)
+{
+    return;
+}
+
+//set da link
+void nts::AComponent::setLink(size_t pin, nts::IComponent &other, size_t otherPin)
+{
+    _links[pin] = {&other, otherPin};
+}
+
+nts::Tristate nts::AComponent::getLink(size_t pin)
+{
+    if (_links.count(pin) == 0)
+        return Undefined;
+    auto &da_link = _links[pin];
+    return compute_hashmap(da_link.component, da_link.pin); //compute takes as an input the supposed return pin
+}

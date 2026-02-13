@@ -33,24 +33,12 @@ class AComponent : public virtual IComponent
         ~AComponent() = default;
 
         //void display(ostream& os = cout);
-        void simulate(size_t tick) override
-        {
-            return;
-        }
+        void simulate(size_t tick) override;
 
         //set da link
-        void setLink(size_t pin, nts::IComponent &other, size_t otherPin) override
-        {
-            _links[pin] = {&other, otherPin};
-        }
+        void setLink(size_t pin, nts::IComponent &other, size_t otherPin) override;
 
-        nts::Tristate getLink(size_t pin)
-        {
-            if (_links.count(pin) == 0)
-                return Undefined;
-            auto &da_link = _links[pin];
-            return compute_hashmap(da_link.component, da_link.pin); //compute takes as an input the supposed return pin
-        }
+        nts::Tristate getLink(size_t pin);
 };
 }
 

@@ -23,12 +23,7 @@ class TrueComponent  : public virtual AComponent
         //TrueComponent();
         //~TrueComponent() = default;
 
-        nts :: Tristate compute ( std :: size_t pin ) override
-        {
-            if (pin != 1) //return pin
-                return Undefined;
-            return True;
-        }
+        nts :: Tristate compute ( std :: size_t pin ) override;
 
 };
 

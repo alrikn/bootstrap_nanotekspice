@@ -9,7 +9,11 @@ NAME = nanotekspice
 SRC = main.cpp	\
 	src/circuit_handler/HashMapCache.cpp \
 	src/circuit_handler/Circuit.cpp \
+	src/circuit_handler/AComponent.cpp \
 	src/components/AndComponent.cpp \
+	src/components/FalseComponent.cpp \
+	src/components/TrueComponent.cpp \
+	src/components/NotComponent.cpp \
 
 
 OBJ = $(SRC:.cpp=.o)
