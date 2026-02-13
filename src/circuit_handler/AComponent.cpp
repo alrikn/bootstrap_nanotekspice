@@ -6,6 +6,7 @@
 */
 
 #include "AComponent.hpp"
+#include "HashMapCache.hpp"
 
 
 void nts::AComponent::simulate(size_t tick)

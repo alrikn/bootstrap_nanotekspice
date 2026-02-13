@@ -8,7 +8,6 @@
 #ifndef INCLUDED_TRUECOMPONENT_HPP
     #define INCLUDED_TRUECOMPONENT_HPP
 
-#include <iostream>
 
 #include "AComponent.hpp"
 #include "IComponent.hpp"

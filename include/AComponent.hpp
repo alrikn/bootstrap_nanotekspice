@@ -8,10 +8,9 @@
 #ifndef INCLUDED_ACOMPONENT_HPP
     #define INCLUDED_ACOMPONENT_HPP
 
-#include "HashMapCache.hpp"
+#include "Circuit.hpp"
 #include "IComponent.hpp"
-#include <cstdint>
-#include <iostream>
+#include <cstddef>
 #include <map>
 namespace nts {
 class AComponent : public virtual IComponent
@@ -25,6 +24,8 @@ class AComponent : public virtual IComponent
 
         //index of map is gonna be our pin, and holds other pin as well as ref to other component
         std::map<size_t, Link> _links; //just make a map of links
+
+        std::map<size_t, Class_type> component_links = {{1, UndefinedType}};
 
     public:
         AComponent() = default;

@@ -9,11 +9,9 @@
     #define INCLUDED_CIRCUIT_HPP
 
 #include <csignal>
-#include <iostream>
 #include <memory>
-#include <utility>
-#include "AComponent.hpp"
 #include "IComponent.hpp"
+#include <map>
 
 
 namespace nts {
@@ -24,6 +22,7 @@ enum Class_type { //primes (cus if u add up any with each other or with itself i
     UserOutputType = 5, //user outputs that will be shown on display (so the output keyword)
     UserInputType = 7, //the special inputs that require no connection like clock or the special input but still require cli intervention
     PureInputType = 11, //False and True, who bothe require no connection and are always set specifically
+    UndefinedType = 13
 };
 
 const auto possible_combinations = { //there is probably a better way but it is late and i am tired

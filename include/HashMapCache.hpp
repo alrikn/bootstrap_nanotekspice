@@ -9,7 +9,6 @@
     #define INCLUDED_HASHMAPCACHE_HPP
 
 #include "IComponent.hpp"
-#include <cstdint>
 
 namespace nts {
 

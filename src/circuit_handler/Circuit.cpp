@@ -6,6 +6,7 @@
 */
 
 #include "Circuit.hpp"
+#include "HashMapCache.hpp"
 
 namespace nts {
 
