@@ -50,6 +50,8 @@ class Circuit {
     private:
         std::map<std::string, ComponentEntry> components;
     public:
+        Circuit() = default;
+        ~Circuit() = default;
         void addComponent(std::string name, std::unique_ptr<IComponent> c, ClassType type);
         std::unique_ptr<IComponent> &getComponent(std::string const &name);
 
