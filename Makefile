@@ -19,6 +19,7 @@ SRC = main.cpp	\
 	src/components/input_components/UserInputComponent.cpp \
 	src/components/input_components/UserOutputComponent.cpp \
 	src/components/gate_components/Component4071.cpp \
+	src/components/gate_components/Component4081.cpp \
 
 
 OBJ = $(SRC:.cpp=.o)

@@ -5,6 +5,10 @@
 ** Component4071
 */
 
+#ifndef INCLUDED_COMPONENT4071_HPP
+    #define INCLUDED_COMPONENT4071_HPP
+
+
 #include "AComponent.hpp"
 #include "OrComponent.hpp"
 #include <iostream>
@@ -27,3 +31,4 @@ class Component4071 : public virtual AComponent
 
 };
 }
+#endif
