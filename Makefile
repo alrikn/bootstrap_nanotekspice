@@ -13,6 +13,7 @@ SRC = main.cpp	\
 	src/components/elementary_components/AndComponent.cpp \
 	src/components/elementary_components/NotComponent.cpp \
 	src/components/elementary_components/OrComponent.cpp \
+	src/components/elementary_components/XorComponent.cpp \
 	src/components/input_components/FalseComponent.cpp \
 	src/components/input_components/TrueComponent.cpp \
 	src/components/input_components/UserInputComponent.cpp \
