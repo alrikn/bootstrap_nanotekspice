@@ -22,7 +22,7 @@ class UserInputComponent  : public virtual ASpecialComponent
     public:
         //UserInputComponent();
         //~UserInputComponent() = default;
-
+        void simulate(size_t tick) override;
         UserInputComponent();
         nts :: Tristate compute ( std :: size_t pin ) override;
 
