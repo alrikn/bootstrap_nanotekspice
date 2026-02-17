@@ -30,8 +30,8 @@ class Parser
         bool is_comment_or_empty(const std::string &line);
 
         // parse lines
-        void parse_chipset_line();
-        void parse_link_line();
+        void parse_chipset_line(const std::string &line);
+        void parse_link_line(const std::string &line);
 
         // sections
         void parse_chipsets();

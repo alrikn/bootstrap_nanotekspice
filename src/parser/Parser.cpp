@@ -12,34 +12,50 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <algorithm>
+#include <cctype>
 
-nts::Parser::Parser(Circuit circuit, std::string file) : circuit(circuit), file_path(file), file_ptr(file)
+nts::Parser::Parser(const std::string &file) : file_path(file), file_ptr(file)
 {
     if (!file_ptr.is_open())
-        throw std::runtime_error("Could not find file");
+        throw std::runtime_error("Cloud not open file: " + file_path);
 }
 
-void nts::Parser::parse_chipset()
+std::string nts::Parser::trim(const std::string &line)
 {
-    
 }
 
-bool nts::Parser::check_empty()
+bool nts::Parser::is_comment_or_empty(const std::string &line)
 {
 
 }
 
-void nts::Parser::GetNextLine()
+void nts::Parser::parse_chipset_line(const std::string &line)
+{
+
+}
+
+void nts::Parser::parse_link_line(const std::string &line)
+{
+
+}
+
+void nts::Parser::parse_chipsets()
+{
+
+}
+
+void nts::Parser::parse_links()
 {
 
 }
 
 void nts::Parser::run_parser()
 {
-    std::string line;
 
-    while (std::getline(file_ptr, line)) {
-        std::stringstream curr_line = std::stringstream(line);
+}
 
-    }
+nts::Circuit &nts::Parser::getCircuit()
+{
+    return circuit;
 }
