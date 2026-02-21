@@ -14,6 +14,31 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <functional>
+#include <unordered_map>
+#include <vector>
+
+//helpers
+
+static std::string remove_inline_comment(const std::string &line)
+{
+    auto pos = line.find('#');
+
+    if (pos == std::string::npos)
+        return line;
+    return line.substr(0, pos);
+}
+
+static std::vector<std::string> split_ws(const std::string &s)
+{
+    std::istringstream iss(s);
+    std::vector<std::string> out;
+    std::string tok;
+
+    while (iss >> tok)
+        out.push_back(tok);
+    return out;
+}
 
 nts::Parser::Parser(const std::string &file) : file_path(file), file_ptr(file)
 {
