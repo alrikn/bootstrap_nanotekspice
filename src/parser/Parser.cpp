@@ -48,13 +48,15 @@ nts::Parser::Parser(const std::string &file) : file_path(file), file_ptr(file)
 
 std::string nts::Parser::trim(const std::string &line)
 {
-    size_t start = line.find_first_not_of(" \t");
+    std::string nline = remove_inline_comment(line);
+
+    size_t start = nline.find_first_not_of(" \t");
 
     if (start == std::string::npos)
         return "";
 
-    size_t end = line.find_last_not_of(" \t");
-    return line.substr(start, end - start + 1);
+    size_t end = nline.find_last_not_of(" \t");
+    return nline.substr(start, end - start + 1);
 }
 
 bool nts::Parser::is_comment_or_empty(const std::string &line)
