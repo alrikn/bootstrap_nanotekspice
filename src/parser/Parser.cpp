@@ -40,6 +40,13 @@ static std::vector<std::string> split_ws(const std::string &s)
     return out;
 }
 
+// factory
+
+static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_component_by_type(const std::string &type)
+{
+
+}
+
 nts::Parser::Parser(const std::string &file) : file_path(file), file_ptr(file)
 {
     if (!file_ptr.is_open())
@@ -65,13 +72,38 @@ bool nts::Parser::is_comment_or_empty(const std::string &line)
 
 void nts::Parser::parse_chipset_line(const std::string &line)
 {
+    std::string clean = trim(remove_inline_comment(line));
+    if (clean.empty())
+        return;
 
+    std::vector<std::string> tokens = split_ws(clean);
+    if (tokens.size() != 2)
+        throw std::runtime_error("Invalid chipset declaration: '" + line + "'");
 
+    const std::string &type = tokens[0];
+    const std::string &name = tokens[1];
+
+    // created in factory!!
+    auto created = create_component_by_type(type);
+
+    try {
+        circuit.addComponent(name, std::move(created.first), created.second);
+    } catch (const std::exception &e) {
+        throw std::runtime_error(std::string("Failed to add component '") + name + "': " + e.what());
+    }
 }
 
 void nts::Parser::parse_link_line(const std::string &line)
 {
+    std::string clean = trim(remove_inline_comment(line));
+    if (clean.empty())
+        return;
 
+    std::vector<std::string> tokens = split_ws(clean);
+    if (tokens.size() != 2)
+        throw std::runtime_error("Invalid link declaration: '" + line + "'");
+
+    // FINISH!!
 }
 
 void nts::Parser::parse_chipsets()
