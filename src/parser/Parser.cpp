@@ -66,6 +66,32 @@ static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_compon
     return it->second();
 }
 
+// helper parse "name:pin" -> {name, pin}
+static std::pair<std::string, std::size_t> parse_endpoint(const std::string &ep)
+{
+    auto pos = ep.find(':');
+    if (pos == std::string::npos)
+        throw std::runtime_error("Invalid link endpoint '" + ep + "' (missing ':')");
+
+    std::string compName = ep.substr(0, pos);
+    std::string pinStr = ep.substr(pos + 1);
+
+    if (compName.empty())
+        throw std::runtime_error("Invalid link endpoint '" + ep + "' (empty component name)");
+    if (pinStr.empty())
+        throw std::runtime_error("Invalid link endpoint '" + ep + "' (empty pin)");
+
+    for (char c : pinStr)
+        if (!std::isdigit(static_cast<unsigned char>(c)))
+            throw std::runtime_error("Invalid pin number in '" + ep + "'");
+
+    std::size_t pin = static_cast<std::size_t>(std::stoul(pinStr));
+    if (pin == 0)
+        throw std::runtime_error("Pin number must be >= 1 in '" + ep + "'");
+
+    return {compName, pin};
+}
+
 nts::Parser::Parser(const std::string &file) : file_path(file), file_ptr(file)
 {
     if (!file_ptr.is_open())
@@ -116,15 +142,23 @@ void nts::Parser::parse_chipset_line(const std::string &line)
 
 void nts::Parser::parse_link_line(const std::string &line)
 {
-    std::string clean = trim(remove_inline_comment(line));
-    if (clean.empty())
+    std::string cleaned = trim(remove_inline_comment(line));
+    if (cleaned.empty())
         return;
 
-    std::vector<std::string> tokens = split_ws(clean);
+    std::vector<std::string> tokens = split_ws(cleaned);
     if (tokens.size() != 2)
         throw std::runtime_error("Invalid link declaration: '" + line + "'");
 
-    // FINISH!!
+    // helper ^
+    auto left = parse_endpoint(tokens[0]);
+    auto right = parse_endpoint(tokens[1]);
+
+    std::unique_ptr<IComponent> &leftComp = circuit.getComponent(left.first);
+    std::unique_ptr<IComponent> &rightComp = circuit.getComponent(right.first);
+
+    leftComp->setLink(left.second, *rightComp, right.second);
+    rightComp->setLink(right.second, *leftComp, left.second);
 }
 
 void nts::Parser::parse_chipsets()
