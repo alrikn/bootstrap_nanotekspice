@@ -55,28 +55,27 @@ std :: ostream & operator <<( std :: ostream & s , nts :: Tristate v)
 
 void Circuit::display()
 {
-    std::cout << "Display Input:" << std::endl;
+    std::cout << "input(s):" << std::endl;
     //the component are stored as IComponents (grandfather class that is virtual)
     for (auto &c : components)
         if (c.second.type == InDisplayComponent) { //i know a 100% that this is an ASpecialComponent type class
             auto* special = dynamic_cast<ASpecialComponent*>(c.second.component.get());
 
             if (special)
-                std::cout << c.first << " = " << special->get_display_value() << std::endl;
+                std::cout << "  " << c.first << ": " << special->get_display_value() << std::endl;
 
         }
 
-    std::cout << "Display Output:" << std::endl;
+    std::cout << "output(s):" << std::endl;
     for (auto &c : components)
         if (c.second.type == OutDisplayComponent) { //i know a 100% that this is an ASpecialComponent type class
             auto* special = dynamic_cast<ASpecialComponent*>(c.second.component.get());
 
             if (special)
-                std::cout << c.first << " = " << special->get_display_value() << std::endl;
+                std::cout << "  " << c.first << ": " << special->get_display_value() << std::endl;
 
         }
-    
-    std::cout << "End of display command \n" << std::endl;
+
 }
 
 }
