@@ -5,6 +5,7 @@
 ** main
 */
 
+#include "CLI_interface.hpp"
 #include "Circuit.hpp"
 #include "Component4030.hpp"
 #include "Component4069.hpp"
@@ -17,6 +18,7 @@
 #include "FalseComponent.hpp"
 #include "UserInputComponent.hpp"
 #include "UserOutputComponent.hpp"
+#include "Parser.hpp"
 
 
 
@@ -64,17 +66,20 @@ void test_func()
 }
 
 
-int main ( void )
+int main (int argc, char **argv)
 {
-    //std :: unique_ptr<nts::IComponent>gate = std :: make_unique < nts :: AndComponent >() ;
-    //std :: unique_ptr<nts::IComponent>input1 = std :: make_unique < nts :: FalseComponent >() ;
-    //std :: unique_ptr<nts::IComponent>input2 = std :: make_unique < nts :: TrueComponent >() ;
-    //std :: unique_ptr<nts::IComponent>inverter = std :: make_unique < nts :: NotComponent >() ;
-    //gate -> setLink (1 , * input1 , 1) ;
-    //gate -> setLink (2 , * input2 , 1) ;
-    //inverter -> setLink (1 , * gate , 3) ;
-    //std :: cout << " !( " << input1 -> compute (1) << " && " << input2 -> compute (1) << ") -> " <<
-    //inverter -> compute (2) << std :: endl ;
 
-    test_func();
+    //test_func();
+
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <file.nts>\n";
+        return 84;
+    }
+
+    nts::Parser parser(argv[1]);
+    parser.run_parser();
+    nts::Circuit &circuit = parser.getCircuit();
+    CLI_interface interface;
+    interface.run_loop(circuit);
+
 }

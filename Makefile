@@ -27,6 +27,8 @@ SRC = main.cpp	\
 	src/components/gate_components/Component4069.cpp \
 	src/components/gate_components/Component4071.cpp \
 	src/components/gate_components/Component4081.cpp \
+	src/parser/Parser.cpp \
+	src/main_loop.cpp \
 
 
 OBJ = $(SRC:.cpp=.o)

@@ -16,16 +16,9 @@
 
 namespace nts {
 
-enum PinType { //primes (cus if u add up any with each other or with itself its a unique val)
-    InputType = 1, //can only be connected to a single output
-    OuputType = 3, //can only be connect to one or more input
-    LogOutputType = 5, //this is a special case and needs to be handled carefully
-    UndefinedType = 7
-};
 
-const std::initializer_list<int> pin_combinations = { //there is probably a better way but it is late and i am tired
-    OuputType + InputType, //normal input + normal output
-};
+const int valid_pin_combination = OuputType + InputType; //normal input + normal output
+
 
 enum ClassType {
     NormalComponent,

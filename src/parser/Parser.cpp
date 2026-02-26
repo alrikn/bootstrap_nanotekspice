@@ -7,7 +7,9 @@
 */
 
 #include "Parser.hpp"
+#include "Circuit.hpp"
 #include "Component4001.hpp"
+#include "Component4071.hpp"
 #include "TrueComponent.hpp"
 #include "FalseComponent.hpp"
 #include "UserInputComponent.hpp"
@@ -52,12 +54,14 @@ static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_compon
     using Pair = std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType>;
 
     //FILL W/ REST OF COMPONENTS!!!!
+    //TODO put all of this in a hpp file, there is no good reason that this should come clutter our code
     static const std::unordered_map<std::string, std::function<Pair()>> factory = {
         {"input", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::UserInputComponent()), nts::InDisplayComponent); }},
         {"output", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::UserOutputComponent()), nts::OutDisplayComponent); }},
         {"true", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::TrueComponent()), nts::InDisplayComponent); }},
         {"false", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::FalseComponent()), nts::InDisplayComponent); }},
-        {"4001", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4001()), nts::NormalComponent); }}
+        {"4001", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4001()), nts::NormalComponent); }},
+        {"4071", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4071()), nts::NormalComponent); }},
     };
 
     auto it = factory.find(type);
@@ -156,6 +160,15 @@ void nts::Parser::parse_link_line(const std::string &line)
 
     std::unique_ptr<IComponent> &leftComp = circuit.getComponent(left.first);
     std::unique_ptr<IComponent> &rightComp = circuit.getComponent(right.first);
+
+    //alrik code to check if the pins can actually go together
+    nts::PinType leftType = leftComp->get_type(left.second);
+    nts::PinType rightType = rightComp->get_type(right.second);
+
+    bool correct_combo = (leftType + rightType) == valid_pin_combination;
+
+    if (!correct_combo)
+        throw std::runtime_error("Invalid link: pins must be connected Output <-> Input");
 
     leftComp->setLink(left.second, *rightComp, right.second);
     rightComp->setLink(right.second, *leftComp, left.second);
