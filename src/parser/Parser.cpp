@@ -9,8 +9,17 @@
 #include "Parser.hpp"
 #include "Circuit.hpp"
 #include "Component4001.hpp"
+#include "Component4011.hpp"
+#include "Component4030.hpp"
+#include "Component4069.hpp"
 #include "Component4071.hpp"
+#include "Component4081.hpp"
 #include "TrueComponent.hpp"
+#include "AndComponent.hpp"
+#include "XorComponent.hpp"
+#include "NotComponent.hpp"
+#include "ClockComponent.hpp" //Included header ClockComponent.hpp is not used directly (fixes available)clangdunused-includes
+
 #include "FalseComponent.hpp"
 #include "UserInputComponent.hpp"
 #include "UserOutputComponent.hpp"
@@ -56,12 +65,27 @@ static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_compon
     //FILL W/ REST OF COMPONENTS!!!!
     //TODO put all of this in a hpp file, there is no good reason that this should come clutter our code
     static const std::unordered_map<std::string, std::function<Pair()>> factory = {
+        //inputs
         {"input", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::UserInputComponent()), nts::InDisplayComponent); }},
         {"output", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::UserOutputComponent()), nts::OutDisplayComponent); }},
         {"true", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::TrueComponent()), nts::InDisplayComponent); }},
         {"false", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::FalseComponent()), nts::InDisplayComponent); }},
+        {"clock", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::ClockComponent()), nts::InDisplayComponent); }},
+
+        //elementary components
+        {"and", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::AndComponent()), nts::NormalComponent); }},
+        {"or", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::OrComponent()), nts::NormalComponent); }},
+        {"xor", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::XorComponent()), nts::NormalComponent); }},
+        {"not", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::NotComponent()), nts::NormalComponent); }},
+        //TODO:logger
+        //gate components
         {"4001", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4001()), nts::NormalComponent); }},
+        {"4011", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4011()), nts::NormalComponent); }},
+        {"4030", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4030()), nts::NormalComponent); }},
+        {"4069", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4069()), nts::NormalComponent); }},
         {"4071", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4071()), nts::NormalComponent); }},
+        {"4081", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4081()), nts::NormalComponent); }},
+
     };
 
     auto it = factory.find(type);

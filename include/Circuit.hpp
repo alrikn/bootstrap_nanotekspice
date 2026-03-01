@@ -23,7 +23,7 @@ const int valid_pin_combination = OuputType + InputType; //normal input + normal
 enum ClassType {
     NormalComponent,
     LoggerComponent, //this is useful to keep because this is special case, and we need to call comput on it directly (overwrite simultate)
-    ClockComponent, //i am not sure this one has good reason to be here? we might need to remove it.
+    ClockComponentDisplay, //i am not sure this one has good reason to be here? we might need to remove it.
     InDisplayComponent, //what we show on the display, no special treatement needed
     OutDisplayComponent, //what we show on the display, it needs special tretement, (class needs to overwrite simulate)
 };

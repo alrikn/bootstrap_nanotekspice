@@ -17,6 +17,7 @@ SRC = main.cpp	\
 	src/components/elementary_components/NorComponent.cpp \
 	src/components/elementary_components/OrComponent.cpp \
 	src/components/elementary_components/XorComponent.cpp \
+	src/components/input_components/ClockComponent.cpp \
 	src/components/input_components/FalseComponent.cpp \
 	src/components/input_components/TrueComponent.cpp \
 	src/components/input_components/UserInputComponent.cpp \

@@ -24,6 +24,8 @@ void nts::AComponent::setLink(size_t pin, nts::IComponent &other, size_t otherPi
 {
     //TODO: you should be able to connect may pins to a single output, but only to outputs
     //this means than an output may be linked to multiple inputs, but an input may only be linked to a single output.
+
+    if (get_type(pin) == other.get_type(pin)) {}
     _links[pin] = {&other, otherPin};
 }
 

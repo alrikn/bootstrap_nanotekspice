@@ -133,7 +133,7 @@ bool CLI_interface::handle_assignment()
     //we can only get this on input types like clock or the input
     try {
         ClassType ct = _circuit->getType(name);
-        if (ct != InDisplayComponent && ct != ClockComponent) {
+        if (ct != InDisplayComponent && ct != nts::ClockComponentDisplay) {
             std::cout << "Component '" << name << "' is not settable (must be input/clock)\n";
             return true;
         }
