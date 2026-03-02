@@ -27,11 +27,11 @@
 
 #include "Component4030.hpp"
 #include "AGateComponent.hpp"
-#include "OrComponent.hpp"
+#include "XorComponent.hpp"
 
-static std::unique_ptr<nts::OrComponent> make_func()
+static std::unique_ptr<nts::XorComponent> make_func()
 {
-    return std::make_unique<nts::OrComponent>();
+    return std::make_unique<nts::XorComponent>();
 }
 
 nts::Component4030::Component4030() : nts::AGateComponent({
