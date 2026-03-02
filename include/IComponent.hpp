@@ -21,7 +21,7 @@ enum Tristate {
 
 enum PinType { //primes (cus if u add up any with each other or with itself its a unique val)
     InputType = 1, //can only be connected to a single output
-    OuputType = 3, //can only be connect to one or more input
+    OutputType = 3, //can only be connect to one or more input
     LogOutputType = 5, //this is a special case and needs to be handled carefully
     UndefinedType = 7
 };

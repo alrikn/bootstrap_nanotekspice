@@ -5,3 +5,4 @@ nanotekspice
 *.a
 *.log
 *.tmp
+*.bin

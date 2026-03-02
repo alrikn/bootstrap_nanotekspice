@@ -31,7 +31,7 @@ nts::AGateComponent::AGateComponent(const std::vector<GateInfo>& gateInfos,
         if (inputPins.count(pin))
             component_links[pin] = InputType;
         else if (outputPins.count(pin))
-            component_links[pin] = OuputType;
+            component_links[pin] = OutputType;
         else
             component_links[pin] = UndefinedType;
     }

@@ -11,6 +11,7 @@ SRC = main.cpp	\
 	src/circuit_handler/Circuit.cpp \
 	src/components/AComponent.cpp \
 	src/components/AGateComponent.cpp \
+	src/components/advanced_components/Component4008.cpp \
 	src/components/elementary_components/AndComponent.cpp \
 	src/components/elementary_components/LoggerComponent.cpp \
 	src/components/elementary_components/NandComponent.cpp \
@@ -36,7 +37,7 @@ SRC = main.cpp	\
 OBJ = $(SRC:.cpp=.o)
 CXX = clang++
 CXXFLAGS = -std=c++20 -Wall -Wextra -g
-CPPFLAGS = -I include -I include/gate_components -I include/input_components -I include/elementary_components
+CPPFLAGS = -I include -I include/gate_components -I include/input_components -I include/elementary_components -I include/advanced_components
 
 all: $(NAME)
 

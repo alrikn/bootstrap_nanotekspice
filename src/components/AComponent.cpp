@@ -47,7 +47,7 @@ void nts::AComponent::setLink(size_t pin, nts::IComponent &other, size_t otherPi
     }
 
 
-    if (myType == OuputType) {
+    if (myType == OutputType) {
         //since output can have many dest, we'll avoid duplicate entries
         for (const auto &l : vec)
             if (l.component == &other && l.pin == otherPin)

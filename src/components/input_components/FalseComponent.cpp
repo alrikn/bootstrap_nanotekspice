@@ -11,7 +11,7 @@
 nts::FalseComponent::FalseComponent()
 {
     component_links = {
-        {1, OuputType},
+        {1, OutputType},
     };
 }
 

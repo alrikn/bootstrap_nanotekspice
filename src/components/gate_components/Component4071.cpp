@@ -33,15 +33,15 @@ nts::Component4071::Component4071()
 {
     component_links = {
         //or1
-        {1, InputType},{2, InputType},{3, OuputType},
+        {1, InputType},{2, InputType},{3, OutputType},
         //or2
-        {4, OuputType},{5, InputType},{6, InputType},
+        {4, OutputType},{5, InputType},{6, InputType},
         //ignored
         {7,UndefinedType},
         //or3
-        {8, InputType},{9, InputType},{10, OuputType},
+        {8, InputType},{9, InputType},{10, OutputType},
         //or4
-        {11, OuputType},{12, InputType},{13, InputType},
+        {11, OutputType},{12, InputType},{13, InputType},
         //ignored
         {14,UndefinedType},
     };

@@ -12,7 +12,7 @@
 
 nts::ClockComponent::ClockComponent()
 {
-    component_links = {{1, OuputType}};
+    component_links = {{1, OutputType}};
 }
 
 //Simulate overwrites the Acomponent simulate, and directly calls compute 1 on itself
@@ -28,7 +28,7 @@ void nts::ClockComponent::simulate(size_t tick)
     //we update the one on previous tick
     display_value = real_value;
 
-    // toggle AFTER snapshot
+    //we toggle the value for the next tick, but if it was undefined we keep it undefined
     if (real_value != nts::Undefined) {
         real_value = (real_value == nts::True) ? nts::False : nts::True;
     }

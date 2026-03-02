@@ -13,7 +13,7 @@
 
 nts::UserInputComponent::UserInputComponent()
 {
-    component_links = {{1, OuputType}};
+    component_links = {{1, OutputType}};
 }
 
 //Simulate overwrites the Acomponent simulate, and directly calls compute 1 on itself

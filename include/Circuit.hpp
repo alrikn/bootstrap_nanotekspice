@@ -17,7 +17,7 @@
 namespace nts {
 
 
-const int valid_pin_combination = OuputType + InputType; //normal input + normal output
+const int valid_pin_combination = OutputType + InputType; //normal input + normal output
 
 
 enum ClassType {

@@ -12,7 +12,7 @@ nts::NotComponent::NotComponent()
 {
     component_links = {
         {1, InputType},
-        {2, OuputType},
+        {2, OutputType},
     };
 }
 

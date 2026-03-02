@@ -13,7 +13,7 @@ nts::OrComponent::OrComponent()
     component_links = {
         {1, InputType},
         {2, InputType},
-        {3, OuputType},
+        {3, OutputType},
     };
 }
 
