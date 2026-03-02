@@ -15,7 +15,8 @@ enum CmdType {
     Simulate,
     Display,
     Assignment,
-    Unknown
+    Loop,
+    Unknown,
 };
 
 
@@ -41,6 +42,7 @@ class CLI_interface
         bool handle_display();
         bool handle_simulate();
         bool handle_assignment();
+        bool handle_loop();
         bool handle_exit();
 
 };

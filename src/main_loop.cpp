@@ -65,6 +65,10 @@ void CLI_interface::parse_command(const std::string &raw_line)
         type = CmdType::Exit;
         return;
     }
+    if (iequals(line, "loop")) {
+        type = CmdType::Loop;
+        return;
+    }
     if (iequals(line, "simulate")) {
         type = CmdType::Simulate;
         return;
@@ -115,6 +119,15 @@ bool CLI_interface::handle_display()
         std::cout << "display failed: " << e.what() << '\n';
     }
     return true;
+}
+
+bool CLI_interface::handle_loop()
+{
+    //signal(SIGINT, SIG_IGN); dunno if i should intercept the signal or not
+    while (true) {
+        handle_simulate();
+        handle_display();
+    }
 }
 
 bool CLI_interface::handle_assignment()
@@ -171,7 +184,9 @@ int CLI_interface::run_loop(Circuit &circuit)
                 if (!handle_exit())
                     return 0;
                 break;
-
+            case CmdType::Loop:
+                handle_loop();
+                break;
             case CmdType::Simulate:
                 handle_simulate();
                 break;
