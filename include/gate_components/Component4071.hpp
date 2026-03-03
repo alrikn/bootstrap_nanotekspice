@@ -11,7 +11,6 @@
 
 #include "AComponent.hpp"
 #include "OrComponent.hpp"
-#include <iostream>
 
 namespace nts {
 

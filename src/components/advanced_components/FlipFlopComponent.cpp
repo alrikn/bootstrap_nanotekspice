@@ -80,7 +80,7 @@ nts :: Tristate nts::FlipFlopComponent::compute ( std :: size_t pin )
 
     _lastClock = clock;
 
-    
+
     if (!risingEdge) //so falling edge
         goto end; //if it's not a rising edge, we don't change the value of Q
 

@@ -37,6 +37,8 @@
 //advanced
 #include "Component4008.hpp"
 #include "Component4512.hpp"
+#include "Component4013.hpp"
+#include "FlipFlopComponent.hpp"
 
 //helpers
 
@@ -92,6 +94,8 @@ static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_compon
         //advanced components
         {"4008", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4008()), nts::NormalComponent); }},
         {"4512", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4512()), nts::NormalComponent); }},
+        {"4013", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4013()), nts::NormalComponent); }},
+        {"flipflop", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::FlipFlopComponent()), nts::NormalComponent); }}, //tchnically not an obligatory component but since its used in 4013, might as well add it to the factory
     };
 
     auto it = factory.find(type);
