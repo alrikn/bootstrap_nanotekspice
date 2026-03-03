@@ -101,7 +101,7 @@ nts :: Tristate nts::LoggerComponent::compute(size_t pin)
     bool risingEdge = (_lastClock == nts::False && clock == nts::True);
     _lastClock = clock;
 
-    if (!risingEdge)
+    if (!risingEdge || inhibit == nts::True) //if it's not a rising edge or if inhibit is true, we do nothing
         return Undefined;
 
     //data inputs () to avoid huge if statement detecting if each and everyone of them has an undefined
