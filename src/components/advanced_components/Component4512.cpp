@@ -6,7 +6,6 @@
 */
 
 #include "Component4512.hpp"
-#include "Circuit.hpp"
 #include "IComponent.hpp"
 
 /*
