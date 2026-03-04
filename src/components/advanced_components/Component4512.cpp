@@ -68,7 +68,7 @@ nts::Component4512::Component4512()
 
 Ç = Don’t care
 
-Hi-Z = TRI-STATE condition (Undefined)
+Hi-Z = TRI-STATE condition (i'm unsure if this means undefined or if it means we should disconnect the output from the circuit, but since we don't have a way to represent disconnection, we'll just return undefined)
 
 Xn = Data at input n
 */
@@ -76,7 +76,7 @@ nts :: Tristate nts::Component4512::compute ( std :: size_t pin )
 {
     if (pin != 14) //the return pin
         return Undefined;
-    if (getLink(15) == nts::False) //this might be the opposite since there is a _ on top of the OE symbol in the datasheet
+    if (getLink(15) == True) //this might be the opposite since there is a _ on top of the OE symbol in the datasheet
         return Undefined;
     if (getLink(10) == nts::True) //IF Inhibit is high, output is 0
         return False;
