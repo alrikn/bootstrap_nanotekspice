@@ -14,6 +14,7 @@ SRC = main.cpp	\
 	src/components/AGateComponent.cpp \
 	src/components/advanced_components/Component4008.cpp \
 	src/components/advanced_components/Component4013.cpp \
+	src/components/advanced_components/Component4040.cpp \
 	src/components/advanced_components/Component4512.cpp \
 	src/components/advanced_components/FlipFlopComponent.cpp \
 	src/components/elementary_components/AndComponent.cpp \
