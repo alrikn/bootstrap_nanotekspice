@@ -35,7 +35,7 @@ class AGateComponent : public virtual AComponent
     //protected:pññ-....................................................................................................................................................................................... so said my cat
     public:
         AGateComponent(const std::vector<GateInfo>& gateInfos, //mmmm links...
-                   std::function<std::unique_ptr<AComponent>()> factory, //I love function pointers
+                   std::function<std::unique_ptr<AComponent>()> min_factory, //I love function pointers
                    int maxPin = 14);
         virtual ~AGateComponent() = default;
         nts::Tristate compute(std::size_t pin) override;

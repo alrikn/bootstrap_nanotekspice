@@ -11,7 +11,7 @@
 #include <unordered_set>
 
 nts::AGateComponent::AGateComponent(const std::vector<GateInfo>& gateInfos,
-                                     std::function<std::unique_ptr<AComponent>()> factory,
+                                     std::function<std::unique_ptr<AComponent>()> min_factory,
                                      int maxPin)
 {
     //temporary sets to collect all external input and output pins from the gateInfos.
@@ -41,7 +41,7 @@ nts::AGateComponent::AGateComponent(const std::vector<GateInfo>& gateInfos,
     //link the internal componens
     for (const auto& info : gateInfos) {
         //mmmm func pointers
-        auto gate = factory();
+        auto gate = min_factory();
 
         //link subgate input pins (numbered 1,2,3... inside that gate)
         // to the chip external input pins in info.InputPins
