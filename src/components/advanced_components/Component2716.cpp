@@ -88,7 +88,7 @@ nts::Component2716::Component2716()
             throw std::runtime_error("Error reading rom file: ./rom.bin");
 
         for (int bit = 0; bit < 8; bit++) {
-            _memory[i * 8 + bit] = (byte >> (7 - bit)) & 1; //we shift the byte to get the value of each bit and store it in our memory array
+            _memory[i * 8 + bit] = (byte >> bit) & 1; //we shift the byte to get the value of each bit and store it in our memory array
         }
     }
     rom_file.close();
