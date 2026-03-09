@@ -5,26 +5,26 @@
 ** Component2716
 */
 
-#ifndef INCLUDED_COMPONENT2716_HPP
-#define INCLUDED_COMPONENT2716_HPP
+#ifndef INCLUDED_COMPONENT4801_HPP
+    #define INCLUDED_COMPONENT4801_HPP
 
 #include "AComponent.hpp"
-#include <vector>
-#include <cstdint>
+#include "IComponent.hpp"
+#include <bitset>
+
 namespace nts {
 
-class Component2716 : public virtual AComponent {
-private:
-    uint8_t _rom[2048];
 
-    int computeAddress();
+class Component2716 : public virtual AComponent
+{
+    private:
+        char _memory[2048 *8] = {false}; //2048 bytes of memory, each byte has 8 bits
+        //every bool takes 1 bytes but there should be a way to make it take one bit per bool.
+    protected:
+    public:
+        Component2716();
+        nts :: Tristate compute ( std :: size_t pin ) override;
 
-public:
-    Component2716();
-    void simulate(size_t tick) override;
-    Tristate compute(size_t pin) override;
 };
-
 }
-
 #endif
