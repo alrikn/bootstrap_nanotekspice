@@ -237,5 +237,5 @@ Signals in the simulator use **three-state logic**:
 
 You can see the gate documentation in the directory called documentation in the root.
 
-There are also many preconfigured nts files to play around with in the nts directory.
+There are also many preconfigured nts files to play around with in the Tests directory.
 
